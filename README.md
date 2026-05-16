@@ -297,7 +297,7 @@ DEFAULT_API_KEY=hermes123456
 # Per-container keys (optional, overrides default)
 CONTAINER_C1_API_KEY=prod_key_001
 CONTAINER_C2_API_KEY=prod_key_002
-CONTAINER_C3_API_KEY=skp-hermes1234OIUYADJUIUASDKJH
+CONTAINER_C3_API_KEY=prod_key_003
 ```
 
 ### Priority
