@@ -1,0 +1,30 @@
+# Hermes Swarm - Git Ignore
+
+# Environment configuration (contains API keys)
+.env
+
+# State file (contains runtime state)
+hermes-state.json
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+
+# PowerShell artifacts
+*.ps1.orig
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Note: .env.example is committed as a template
+# Copy .env.example to .env and customize your API keys
