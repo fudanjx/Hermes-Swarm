@@ -111,6 +111,11 @@ All scripts are in `.\scripts\` directory.
 - `-StartId <number>` - Override starting container ID (optional)
 - `-Force` - Skip port availability check
 
+**Volume Reuse (Automatic):**
+- If a volume already exists (from `-KeepVolumes`), it will be automatically reused
+- Preserves all data: configs, memories, skills, work history
+- Only copies from seed if volume doesn't exist
+
 **Examples:**
 
 ```powershell
@@ -122,6 +127,9 @@ All scripts are in `.\scripts\` directory.
 
 # Skip confirmation
 .\scripts\2-spawn-containers.ps1 -Count 3 -Force
+
+# Respawn with preserved data (reuses existing volume)
+.\scripts\2-spawn-containers.ps1 -Count 1 -StartId 3
 
 # Custom starting ID (advanced)
 .\scripts\2-spawn-containers.ps1 -Count 2 -StartId 10
@@ -142,7 +150,7 @@ Successfully spawned 3 container(s):
 API Keys:
   - hermes-c1: hermes123456
   - hermes-c2: hermes123456
-  - hermes-c3: skp-hermes1234OIUYADJUIUASDKJH
+  - hermes-c3: hermes123456
 
 Access dashboards:
   - http://localhost:8642 (hermes-c1)

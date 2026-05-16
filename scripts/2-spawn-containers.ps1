@@ -124,15 +124,34 @@ for ($i = 0; $i -lt $Count; $i++) {
     Write-Host "[$($i+1)/$Count] Creating $containerName..." -ForegroundColor Cyan
 
     try {
-        Write-Host "  Creating volume $volumeName..." -ForegroundColor Gray
-        docker volume create $volumeName 2>&1 | Out-Null
+        # Check if container already exists (stopped or running)
+        $existingContainer = docker ps -aq --filter "name=${containerName}" 2>&1 | Out-String
+        $existingContainer = $existingContainer.Trim()
 
-        if ($LASTEXITCODE -ne 0) {
-            throw "Failed to create volume"
+        if ($existingContainer) {
+            Write-Host "  Container $containerName already exists, removing it first..." -ForegroundColor Yellow
+            docker rm -f $existingContainer 2>&1 | Out-Null
         }
 
-        Copy-DockerVolume -Source $seedVolume -Destination $volumeName
-        Set-VolumePermissions -VolumeName $volumeName
+        # Check if volume already exists (from previous container with -KeepVolumes)
+        $existingVolume = docker volume ls --filter "name=${volumeName}" --format "{{.Name}}" 2>&1 | Out-String
+        $existingVolume = $existingVolume.Trim()
+
+        if ($existingVolume -and $existingVolume -eq $volumeName) {
+            Write-Host "  Volume $volumeName already exists, reusing it..." -ForegroundColor Yellow
+            Write-Host "  Skipping seed copy (preserving existing data)" -ForegroundColor Gray
+        }
+        else {
+            Write-Host "  Creating new volume $volumeName..." -ForegroundColor Gray
+            docker volume create $volumeName 2>&1 | Out-Null
+
+            if ($LASTEXITCODE -ne 0) {
+                throw "Failed to create volume"
+            }
+
+            Copy-DockerVolume -Source $seedVolume -Destination $volumeName
+            Set-VolumePermissions -VolumeName $volumeName
+        }
 
         # Get API key for this container
         $apiKey = Get-ContainerApiKey -ContainerId $containerId

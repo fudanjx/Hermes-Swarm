@@ -47,6 +47,9 @@ Open browser: http://localhost:8642 (C1), http://localhost:8643 (C2), etc.
 
 # Remove container (keep data)
 .\scripts\5-remove-containers.ps1 -ContainerId 3 -KeepVolumes
+
+# Respawn container (reuses preserved data)
+.\scripts\2-spawn-containers.ps1 -Count 1 -StartId 3
 ```
 
 ---
