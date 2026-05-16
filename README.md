@@ -97,7 +97,7 @@ All scripts are in `.\scripts\` directory.
 
 **When to use:**
 - First time setup
-- Updating OAuth credentials
+- Updating OAuth credentials/API credential injection path
 - Changing base configuration
 
 ---
