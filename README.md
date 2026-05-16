@@ -1,6 +1,6 @@
 # Hermes Agent Container Scaling System
 
-Complete Docker-based solution for running multiple Hermes Agent containers with preserved OAuth configuration.
+Complete Docker-based solution for running multiple Hermes Agent containers with preserved Onboarding configuration.
 
 ## Quick Start
 
